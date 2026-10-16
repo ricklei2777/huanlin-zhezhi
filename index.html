@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="xuan" data-font="song" data-size="md" data-direction="horizontal">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>幻林折枝 · 苍梧山志异</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* ===== 主题配色系统 ===== */
+    html[data-theme="xuan"] {
+      --bg-page: #f6f1e6;
+      --bg-card: #fbf8f1;
+      --bg-elevated: rgba(246, 241, 230, 0.88);
+      --text-main: #2b2522;
+      --text-muted: #766b62;
+      --text-faint: #a3978c;
+      --accent-vermilion: #9b3528;
+      --accent-jade: #4d6b5c;
+      --border-line: #e3dac9;
+      --quote-bg: rgba(155, 53, 40, 0.04);
+      --shadow-soft: 0 12px 40px -12px rgba(60, 45, 30, 0.08);
+      --petal-color: rgba(214, 143, 137, 0.28);
+    }
+
+    html[data-theme="celadon"] {
+      --bg-page: #eaepeb;
+      --bg-page: #e9efec;
+      --bg-card: #f2f6f4;
+      --bg-elevated: rgba(233, 239, 236, 0.88);
+      --text-main: #1f2b25;
+      --text-muted: #5a6d63;
+      --text-faint: #8aa095;
+      --accent-vermilion: #8e3b30;
+      --accent-jade: #3b6251;
+      --border-line: #d1ddd7;
+      --quote-bg: rgba(59, 98, 81, 0.05);
+      --shadow-soft: 0 12px 40px -12px rgba(25, 45, 35, 0.08);
+      --petal-color: rgba(130, 175, 155, 0.25);
+    }
+
+    html[data-theme="night"] {
+      --bg-page: #141618;
+      --bg-card: #1b1e21;
+      --bg-elevated: rgba(20, 22, 24, 0.88);
+      --text-main: #d5cfc6;
+      --text-muted: #8b857c;
+      --text-faint: #57534d;
+      --accent-vermilion: #c45a4a;
+      --accent-jade: #6b9683;
+      --border-line: #2a2e32;
+      --quote-bg: rgba(196, 90, 74, 0.06);
+      --shadow-soft: 0 14px 44px -12px rgba(0, 0, 0, 0.45);
+      --petal-color: rgba(196, 90, 74, 0.18);
+    }
+
+    /* ===== 中文字体族与字号等级 ===== */
+    :root {
+      --font-song: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+      --font-kai: "Kaiti SC", "STKaiti", "BiauKai", "DFKai-SB", "KaiTi", "Songti SC", serif;
+      --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    html[data-font="song"] .prose-body {
+      font-family: var(--font-song);
+    }
+    html[data-font="kai"] .prose-body {
+      font-family: var(--font-kai);
+    }
+
+    html[data-size="sm"] .prose-body {
+      font-size: 16px;
+      line-height: 2.05;
+    }
+    html[data-size="md"] .prose-body {
+      font-size: 18.5px;
+      line-height: 2.12;
+    }
+    html[data-size="lg"] .prose-body {
+      font-size: 21px;
+      line-height: 2.18;
+    }
+    html[data-size="xl"] .prose-body {
+      font-size: 24px;
+      line-height: 2.22;
+    }
+
+    /* ===== 基础样式与纸张肌理 ===== */
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-song);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* 细腻宣纸纹理叠加 */
+    .paper-texture {
+      background-image: radial-gradient(var(--border-line) 0.55px, transparent 0.55px);
+      background-size: 18px 18px;
+    }
+
+    /* ===== 核心中文正文排版规范 ===== */
+    .prose-body {
+      letter-spacing: 0.035em;
+      text-align: justify;
+      text-justify: inter-ideograph;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      font-feature-settings: "halt" 1; /* 标点挤压半宽优化 */
+    }
+
+    .prose-body p {
+      text-indent: 2em;
+      margin-bottom: 1.45em;
+      transition: color 0.3s ease;
+    }
+
+    /* 特殊段落：首段下沉与对话独白 */
+    .prose-body p.no-indent {
+      text-indent: 0;
+    }
+
+    .prose-body p.sound-fx {
+      text-indent: 0;
+      text-align: center;
+      font-family: var(--font-kai);
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      color: var(--accent-vermilion);
+      margin: 2.1em 0;
+      font-size: 1.08em;
+    }
+
+    .prose-body blockquote.dream-whisper {
+      margin: 1.8em 0 1.8em 1.2em;
+      padding: 0.9em 1.4em;
+      border-left: 2px solid var(--accent-vermilion);
+      background: var(--quote-bg);
+      font-family: var(--font-kai);
+      color: var(--text-muted);
+      border-radius: 0 6px 6px 0;
+      text-indent: 0;
+      line-height: 1.95;
+    }
+
+    /* 章节标题美学 */
+    .chapter-header {
+      margin: 3.8rem 0 2.4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .chapter-num {
+      font-family: var(--font-kai);
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      color: var(--accent-vermilion);
+      display: inline-block;
+      padding: 0.2rem 0.9rem;
+      border-top: 1px solid var(--border-line);
+      border-bottom: 1px solid var(--border-line);
+      margin-bottom: 0.65rem;
+    }
+
+    .chapter-title {
+      font-family: var(--font-kai);
+      font-size: 1.55rem;
+      font-weight: normal;
+      letter-spacing: 0.28em;
+      color: var(--text-main);
+    }
+
+    /* 朱文印章 */
+    .seal-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      border: 1.5px solid var(--accent-vermilion);
+      color: var(--accent-vermilion);
+      font-family: var(--font-kai);
+      font-size: 0.75rem;
+      line-height: 1.05;
+      padding: 2px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+      transform: rotate(-2deg);
+      box-shadow: inset 0 0 0 1px rgba(155, 53, 40, 0.15);
+      user-select: none;
+    }
+
+    /* ===== 古籍竖排模式 (vertical-rl) ===== */
+    html[data-direction="vertical"] .book-container {
+      max-width: 94vw;
+      overflow-x: auto;
+      padding: 2rem 1.5rem;
+    }
+
+    html[data-direction="vertical"] .book-sheet {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      height: 76vh;
+      min-height: 520px;
+      max-width: none;
+      width: auto;
+      overflow-x: auto;
+      padding: 2.8rem 3.2rem;
+      column-gap: 3rem;
+    }
+
+    html[data-direction="vertical"] .prose-body p {
+      margin-bottom: 0;
+      margin-left: 1.4em;
+    }
+
+    html[data-direction="vertical"] .chapter-header {
+      margin: 0 2.4rem 0 3.2rem;
+    }
+
+    html[data-direction="vertical"] .chapter-num {
+      border-top: none;
+      border-bottom: none;
+      border-left: 1px solid var(--border-line);
+      border-right: 1px solid var(--border-line);
+      padding: 0.8rem 0.25rem;
+      margin-bottom: 0;
+      margin-left: 0.75rem;
+    }
+
+    html[data-direction="vertical"] .prose-body blockquote.dream-whisper {
+      margin: 1.2em 1.6em 0 1.6em;
+      border-left: none;
+      border-top: 2px solid var(--accent-vermilion);
+      padding: 1.2em 0.9em;
+    }
+
+    /* 卷首线装书脑装饰 */
+    .book-border-frame {
+      border: 1px solid var(--border-line);
+      box-shadow: var(--shadow-soft);
+      background-color: var(--bg-card);
+      position: relative;
+    }
+    .book-border-frame::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1px solid var(--border-line);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    /* 顶部阅读进度条 */
+    #progress-bar {
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--accent-jade), var(--accent-vermilion));
+      width: 0%;
+      transition: width 0.12s ease-out;
+    }
+
+    /* 按钮激活态 */
+    .ctrl-btn {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid var(--border-line);
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .ctrl-btn:hover {
+      color: var(--text-main);
+      border-color: var(--text-faint);
+    }
+    .ctrl-btn.active {
+      background-color: var(--accent-vermilion);
+      color: #fff;
+      border-color: var(--accent-vermilion);
+    }
+
+    .toc-item.active {
+      color: var(--accent-vermilion);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="paper-texture min-h-screen flex flex-col justify-between relative">
+
+  <!-- 飘落花瓣与薄雾画布 -->
+  <canvas id="mist-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-75"></canvas>
+
+  <!-- 顶部固定导航与排版控制栏 -->
+  <header class="sticky top-0 z-30 backdrop-blur-md border-b transition-colors"
+          style="background-color: var(--bg-elevated); border-color: var(--border-line);">
+    <div id="progress-bar"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
+      <!-- 左侧标题与目录锚点 -->
+      <div class="flex items-center gap-3">
+        <span class="seal-stamp" title="折枝人印">折枝</span>
+        <div>
+          <h1 class="text-sm sm:text-base font-medium tracking-widest" style="font-family: var(--font-kai);">
+            幻林折枝
+          </h1>
+          <p class="text-xs hidden sm:block" style="color: var(--text-muted); font-family: var(--font-kai);">
+            苍梧山北麓 · 赎魂志异
+          </p>
+        </div>
+      </div>
+
+      <!-- 中部章节速跳 (桌面端显示) -->
+      <nav class="hidden md:flex items-center gap-5 text-xs tracking-widest" style="font-family: var(--font-kai); color: var(--text-muted);">
+        <a href="#ch-1" class="toc-item hover:opacity-80 transition">一·赎魂</a>
+        <a href="#ch-2" class="toc-item hover:opacity-80 transition">二·入雾</a>
+        <a href="#ch-3" class="toc-item hover:opacity-80 transition">三·破妄</a>
+        <a href="#ch-4" class="toc-item hover:opacity-80 transition">四·心魔</a>
+        <a href="#ch-5" class="toc-item hover:opacity-80 transition">五·散雾</a>
+      </nav>
+
+      <!-- 右侧排版设置开关 -->
+      <div class="flex items-center gap-2">
+        <button id="toggle-settings" class="ctrl-btn flex items-center gap-1.5">
+          <span>字与纸</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- 展开式排版控制面板 -->
+    <div id="settings-drawer" class="hidden border-t px-4 py-3.5 transition-all"
+         style="background-color: var(--bg-card); border-color: var(--border-line);">
+      <div class="max-w-3xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs">
+        <!-- 纸张主题 -->
+        <div class="flex items-center gap-2">
+          <span style="color: var(--text-muted);">纸色：</span>
+          <button data-set-theme="xuan" class="ctrl-btn active">宣纸</button>
+          <button data-set-theme="celadon" class="ctrl-btn">竹青</button>
+          <button data-set-theme="night" class="ctrl-btn">夜读</button>
+        </div>
+
+        <!-- 字体选择 -->
+        <div class="flex items-center gap-2">
+          <span style="color: var(--text-muted);">字体：</span>
+          <button data-set-font="song" class="ctrl-btn active">雅宋</button>
+          <button data-set-font="kai" class="ctrl-btn">清楷</button>
+        </div>
+
+        <!-- 字号大小 -->
+        <div class="flex items-center gap-2">
+          <span style="color: var(--text-muted);">字号：</span>
+          <button data-set-size="sm" class="ctrl-btn">小</button>
+          <button data-set-size="md" class="ctrl-btn active">中</button>
+          <button data-set-size="lg" class="ctrl-btn">大</button>
+          <button data-set-size="xl" class="ctrl-btn">特大</button>
+        </div>
+
+        <!-- 排版方向 -->
+        <div class="flex items-center gap-2">
+          <span style="color: var(--text-muted);">版式：</span>
+          <button data-set-dir="horizontal" class="ctrl-btn active">横排卷轴</button>
+          <button data-set-dir="vertical" class="ctrl-btn">古籍竖排</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体书页容器 -->
+  <main class="book-container flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-14 relative z-10">
+    <article class="book-sheet book-border-frame rounded-sm px-6 sm:px-16 py-12 sm:py-20">
+
+      <!-- 扉页题签 -->
+      <header class="text-center mb-14 pb-10 border-b" style="border-color: var(--border-line);">
+        <div class="inline-block text-xs tracking-[0.4em] mb-4 px-3 py-1 rounded-full"
+             style="color: var(--accent-jade); background: var(--quote-bg); font-family: var(--font-kai);">
+          苍梧山志 · 卷柒
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-normal tracking-[0.35em] mb-6"
+            style="font-family: var(--font-kai); color: var(--text-main);">
+          幻林折枝
+        </h1>
+        <p class="text-sm sm:text-base tracking-[0.2em] max-w-md mx-auto leading-relaxed"
+           style="font-family: var(--font-kai); color: var(--text-muted);">
+          “幻林之木，不汲水土，只食人世未了之执念。<br/>折枝人入林，有破妄之责，亦有承痛之诫。”
+        </p>
+        <div class="mt-6 flex items-center justify-center gap-3 text-xs" style="color: var(--text-faint); font-family: var(--font-kai);">
+          <span>全文约四千二百字</span>
+          <span>·</span>
+          <span>共五章</span>
+        </div>
+      </header>
+
+      <!-- 正文内容 -->
+      <div class="prose-body">
+
+        <!-- 第一章 -->
+        <section id="ch-1">
+          <div class="chapter-header">
+            <div class="chapter-num">卷一</div>
+            <h2 class="chapter-title">赎魂</h2>
+          </div>
+
+          <p>苍梧山北麓有一片终年不散的白雾，山下的樵夫与药农管那里叫“无妄林”，而山志残卷里记载的旧名，是“幻林”。</p>
+          <p>传言幻林里的树不汲水土，只食人世间未了的执念。凡人若揣着心事踏入雾障，林木便会顺着他心底最痛或最贪的一角，织出一场同真的幻境。有人在林外只站了半炷香，出来时已双鬓如霜，嘴里喃喃唤着数十年前亡妻的乳名；也有人提着柴刀进去，三日后被人发现在林缘的青石上，怀里死死抱着一截枯木，脸上却带着大梦初醒的狂喜，未及天明便气绝了。</p>
+          <p>惟有一种人能在幻林里自由出入——“折枝人”。</p>
+          <p>沈渡便是这一代的折枝人。他住在苍梧山腰的半间草庐里，常年披一件洗得发白的青灰道袍，腰间悬着一柄无锋的乌木短尺，左眼蒙着三指宽的素色细麻布。</p>
+          <p>他替人入林，不为寻宝，只为“赎魂”。哪家的儿郎或娘子困在了幻林深处，亲眷便背着米粮或银钱上山，跪在草庐前求沈渡走一遭。沈渡的规矩极怪：不收金银，只收求助者身上最珍视却又甘愿舍弃的一件旧物；且入林之后，无论困在林中的人是生是死、愿不愿醒，他只替对方折断那根维系幻境的“本命枝”。至于枝断之后，那人能不能撑过梦碎时的反噬，全看造化。</p>
+          <p>这日暮春，山雨欲来，草庐前的青石阶上跪了一个浑身湿透的少女。</p>
+          <p>少女约莫十六七岁，一身水绿衫子被山荆划得破败不堪，手里却用一方干净的油纸包着一管焦尾竹笛，高高举过头顶。</p>
+          <p>“求沈先生救我阿兄。”少女声音嘶哑，额头在青石上磕出道道血痕，“我阿兄苏砚，五日前入林寻药，至今未归。这管竹笛是他自幼随身之物，亦是他手把手教我吹奏的唯一念想。若先生能带他出来，阿沅愿一生不再碰音律，将此笛奉予先生。”</p>
+          <p>沈渡推开竹扉，仅露出的右眼淡漠如古井。他垂眸看了看那管竹笛——笛尾有一道旧焦痕，竹身已被摩挲得温润如琥珀，笛孔边缘却还沾着一点未干的暗红血迹，不知是兄长的，还是少女自己的。</p>
+          <p>“入幻林者，十之八九是不愿醒的。”沈渡接过竹笛，声音清冷，“苏砚入林，当真只是为了寻药？”</p>
+          <p>少女阿沅身子一颤，咬紧下唇，半晌才哭出声来：“阿兄……阿兄定是为了寻谢家姐姐的魂魄。半月前谢姐姐病逝，阿兄嘴上不说，只道上山采药替我调理旧疾，可我知道，他是听说幻林能见故人，存了死志进去的！”</p>
+          <p>沈渡指尖在竹笛的焦痕上轻轻一抚，微不可察地叹了口气。</p>
+          <p>“三日。”沈渡转身回屋，取出一柄油纸伞与腰间的乌木尺，“你在庐中等三日。三日后日落，若我未归，便是连我也折不断他的枝，你自行下山去吧。”</p>
+        </section>
+
+        <!-- 第二章 -->
+        <section id="ch-2">
+          <div class="chapter-header">
+            <div class="chapter-num">卷二</div>
+            <h2 class="chapter-title">入雾</h2>
+          </div>
+
+          <p>踏入白雾的一瞬，山间的风雨声便如被利刃截断般消失了。</p>
+          <p>幻林的内部并非阴森鬼域，相反，它美得近乎妖异。脚下是厚软如毯的银色苔藓，四周古木参天，枝叶却并非翠绿，而是半透明的琉璃色，叶脉间流淌着细碎的微光，仿佛每一片叶子都封存着一段呼吸、一声叹息。</p>
+          <p>沈渡将那管竹笛系在腰间，伸手按了按左眼的麻布。麻布之下，并不是空的眼眶，而是一只被幻林树汁浸染过的“见妄眼”。十年前他自己也曾困于林中，生生剜去半截记忆、瞎了一只凡眼，才换来这只能够看破虚妄的异瞳。</p>
+          <p>他取下竹笛，横在唇边，吹了一个极短促的单音。</p>
+          <p>笛声落入浓雾，原本静止的琉璃树叶忽然无风自动，发出细碎如私语的声响。一缕极淡的青烟自笛孔中溢出，蜿蜒着向林木深处飘去——那是苏砚留在这管竹笛上的执念，正在与林中某棵古树共鸣。</p>
+          <p>沈渡提步跟上。</p>
+          <p>一路往深处走，他经过了许多棵正在“做梦”的树。右侧一棵合欢树下，蜷缩着一个白发苍苍的老卒，老卒脸上满是泪痕，双手在虚空中胡乱抓握。沈渡透过左眼的麻布缝隙望去，隐约能看见合欢树垂下的一根主枝正泛着血色红光，红光里映出的幻象，是四十年前的一场春社，年轻的儿郎正将一朵山茶簪在心上人鬓边。</p>
+          <p>沈渡没有驻足。老卒的气息已与树根相连，此刻折枝，老卒立时便会化作枯骨。</p>
+          <p>又行了约莫一个时辰，前方的雾气忽然散开，化作一片漫山遍野的桃花林。</p>
+          <p>明明是苍梧山的暮春，这里却似江南三月，流水潺潺，落英缤纷。水边立着一座竹篱小院，院中石桌上摆着未下完的残局，一个青衫书生正执黑子，含笑望着对面煮茶的女子。</p>
+          <p>那女子一身素白襦裙，眉目温婉，正伸手拂去书生肩头的一瓣桃花。</p>
+          <p>沈渡停在竹篱外。他右眼所见的，是这岁月静好的江南小院；而左眼麻布下隐隐灼痛所映出的，却是一棵高达十丈的巨大古樟树。青衫书生双目紧闭，倚靠在粗糙的树干上，双手早已被垂落的气根缠绕刺穿，鲜血顺着苍白的指尖滴入泥土，滋养着头顶那根开满绚烂桃花的粗壮横枝。</p>
+          <p>“苏砚。”沈渡开口，声音不大，却如一颗石子砸碎了池水中的倒影。</p>
+          <p>小院里的流水声骤然一滞。煮茶的谢氏女子面露惊愕，身形如水波般晃动了一下。青衫书生猛地转过头，看清竹篱外的沈渡时，原本温和的眼神瞬间充满了戒备与慌乱。</p>
+          <p>“你是何人？为何擅闯我与婉娘的居所？”苏砚下意识地起身，挡在女子身前。</p>
+          <p>“我是折枝人。”沈渡解下腰间的焦尾竹笛，递了过去，“你妹妹阿沅在山腰草庐等你。她把这管笛子抵给了我，换你一条性命。”</p>
+          <p>看见竹笛的刹那，苏砚的瞳孔剧烈收缩了一下。他的目光落在笛尾那道焦痕上——那是幼年家中失火，父母双亡，他从火场里背出妹妹时，怀中竹笛留下的烙印。</p>
+          <p>小院的天空开始飘落细碎的灰烬，四周的桃花树一阵摇晃，发出近似呜咽的风声。</p>
+          <p>“阿沅……”苏砚喃喃念出这个名字，眼神有片刻的清明，但当身后的女子轻轻拉住他的衣袖，低声唤了一句“苏郎，我怕”时，他眼中的清明瞬间被更深的绝望与偏执取代。</p>
+          <p>“你走吧。”苏砚后退一步，握住女子的手，苦笑道，“我知道这是幻林，我也知道婉娘半月前便已下葬。可是先生，我在这里陪了她五日，这五日里的每一盏茶、每一局棋、她每一次对我笑，于我而言皆是真真切切。出了这片林子，世上便再无婉娘了。”</p>
+          <p>“可出了这片林子，世上还有一个活着的阿沅。”沈渡平静地说，“你被古樟汲干心血不过还需两日。两日后你死在林中，阿沅便会在苍梧山下守着两座坟。”</p>
+          <p>苏砚浑身剧震，脸色惨白如纸。</p>
+          <p>他低头看着自己紧握的双手。在幻境里，他握着的是心上人温软的手指；可在那阵短暂的清明中，他分明感到了掌心被树根贯穿的刺骨剧痛。</p>
+          <p>“先生既能入林，定有两全之法……”苏砚声音颤抖，近乎哀求，“我只留一半心血在林中，或者每逢朔望再来，可好？”</p>
+          <p>“幻林之木，不死不休。要么枝断梦醒，要么血尽人亡。”沈渡拔出腰间的乌木短尺，“况且，你以为眼前的她，当真是你的婉娘么？”</p>
+          <p>沈渡抬手，揭开了左眼上的素色麻布。</p>
+          <p>那只瞳仁呈淡金色的“见妄眼”暴露在空气中。他将乌木尺横在身前，尺身映出一道冷冽的清光，直直照向苏砚身后的女子。</p>
+          <p>清光所及之处，温婉的谢氏女子忽然发出一声凄厉的尖叫。她原本清澈的眼眸变得空洞漆黑，嘴角诡异地向上裂开，口中吐出的不再是吴侬软语，而是无数重叠在一起的、苏砚自己的梦呓：</p>
+          <blockquote class="dream-whisper">
+            “婉娘别走……都是我无用，连一副续命的野参都寻不到……婉娘，你笑一笑……”
+          </blockquote>
+          <p>“看清楚了么？”沈渡冷声道，“幻林从不招魂。它不曾见过谢婉，它只是剖开你的心肝，把你自己的悔恨、愧疚与记忆捏成泥偶，日夜演给你看。你用性命喂养的不是亡妻，是你自己不敢面对生死的怯懦！”</p>
+          <p>苏砚如遭雷击，踉跄着跌坐在地。</p>
+          <p>石桌、棋局、流水在清光中寸寸碎裂。古樟树感受到威胁，漫天琉璃枝叶狂乱地抽打下来，化作无数锋利的风刃，直扑沈渡面门！</p>
+        </section>
+
+        <!-- 第三章 -->
+        <section id="ch-3">
+          <div class="chapter-header">
+            <div class="chapter-num">卷三</div>
+            <h2 class="chapter-title">破妄</h2>
+          </div>
+
+          <p>“折枝人，有破妄之责，亦有承痛之诫。”</p>
+          <p>沈渡不闪不避，任由数道风刃割破道袍，在肩背上留下深可见骨的血痕。若动用武力强行摧毁林木，受困者的神魂也会随之俱裂。折枝唯一的法子，是折枝人以自身为引，替受困者接下幻境反噬的那一击，再用乌木尺自“本命枝”的根部整齐截断。</p>
+          <p>沈渡踏着崩塌的幻象，一步步走到那棵十丈古樟前。</p>
+          <p>树干之下，苏砚的真身正痛苦地痉挛着，一行血泪自紧闭的眼角滑落。而在他头顶上方，那根开满桃花的横枝正疯狂地汲取着他最后的心头血，试图修补破碎的江南小院。</p>
+          <p>“得罪了。”</p>
+          <p>沈渡纵身跃起，左手一把抓住那根布满荆棘与气根的桃花枝。</p>
+          <p>刹那间，无数属于苏砚的记忆碎片顺着掌心的伤口涌入沈渡脑海——寒窗苦读时的孤灯、初见谢氏女时廊下的春雨、药炉前扇火至天明的绝望、棺木合拢时钉入木板的闷响……千百种悲欢在一息之间炸开，饶是沈渡历经过百次折枝，喉头也忍不住涌上一口腥甜。</p>
+          <p>他却在剧痛中稳稳举起右手，乌木短尺正对树枝与主干交接的木结，重重劈下！</p>
+          <p class="sound-fx">“咔嚓——”</p>
+          <p>一声清脆的断裂声响彻林间。</p>
+          <p>漫天桃花在同一刻化作飞灰。古樟树发出一阵沉闷的轰鸣，缠绕在苏砚身上的气根迅速枯萎缩回。苏砚闷哼一声，彻底昏死过去。</p>
+          <p>沈渡自半空中跌落，单膝跪在银苔上，左手还握着那截断掉的桃花枝。失去了树干的供养，那截枝条迅速褪去了琉璃般的光泽，只余下一截普通得不能再普通的干枯樟木，枝头仅存着一朵半蔫的粉色小花。</p>
+          <p>沈渡喘息片刻，将左眼的麻布重新系好，刚要俯身背起苏砚，脚下的大地却忽然轻微震颤起来。</p>
+          <p>周围的浓雾非但没有散去，反而变得愈发粘稠。一缕熟悉到了极点的淡香——那是雪后寒梅混着松烟墨的气息——毫无征兆地钻入他的鼻息。</p>
+          <p>沈渡背起苏砚的动作猛地僵住。</p>
+        </section>
+
+        <!-- 第四章 -->
+        <section id="ch-4">
+          <div class="chapter-header">
+            <div class="chapter-num">卷四</div>
+            <h2 class="chapter-title">心魔</h2>
+          </div>
+
+          <p>“阿渡，你又把衣裳弄破了。”</p>
+          <p>身后传来一个温和而略带责备的嗓音。</p>
+          <p>沈渡没有回头。他的手指死死攥紧了腰间的乌木尺，指节因为用力而泛出青白。</p>
+          <p>“幻林深处有古木成精，擅长窥伺折枝人心底的旧伤。”沈渡对着空气，一字一顿地说道，“我已在林外守了十年，这一套，对我没用。”</p>
+          <p>“我知道没用。”那声音轻轻叹息，脚步声踩在落叶上，不紧不慢地绕到了沈渡面前。</p>
+          <p>那是一个身穿月白长衫的青年，眉目清隽，唇边带着三分惯有的散漫笑意，腰间同样悬着一柄乌木短尺——正是十年前将沈渡带出幻林、自己却永远留在了林中的师兄，陆微。</p>
+          <p>十年前，沈渡与陆微一同入林救人，沈渡心志不坚，被幼年灭门的惨剧幻象所困，走火入魔。是陆微折断了沈渡的本命枝，替他承受了灭门幻境的万箭穿心之痛，最后力竭倒在古树下，被暴怒的幻林吞噬了尸骨。</p>
+          <p>从那以后，沈渡瞎了左眼，接过了陆微的乌木尺，守在苍梧山腰，成了新的折枝人。</p>
+          <p>“苏砚方才的执念太盛，你替他接下反噬时，心神有了一瞬的松动。”眼前的“陆微”停在三步之外，目光落在沈渡染血的肩头，眼中满是心疼，“阿渡，十年了，你替旁人折了九十九根枝，每一次都要替旁人痛上一回。你把自己活成了一块木头，就为了赎当年害死我的罪么？”</p>
+          <p>“你不是他。”沈渡闭上右眼，唯有紧绷的下颌线泄露出他内心的惊涛骇浪，“陆微死前，只让我好好活着，从未怪过我。”</p>
+          <p>“是啊，我从未怪过你。可你怪你自己。”幻象中的陆微伸出手，掌心里赫然躺着一枚缺了一角的青玉佩——那是当年两人下山历练时，一人一半的信物，“阿渡，你抬头看看头顶。”</p>
+          <p>沈渡猛地睁开左眼。</p>
+          <p>隔着细麻布，他的“见妄眼”骇然看见，不知何时，他们头顶的云雾深处，竟垂下了一根粗如巨蟒的苍翠藤蔓！那藤蔓的顶端并未连接在苏砚身上，而是化作千百根看不见的虚无丝线，早已不知不觉地扎进了沈渡自己的后心！</p>
+          <p>原来这十年间，他每一次入林折枝，幻林都在悄悄记录他的每一次隐忍与自责。这一棵由幻林核心孕育出的“心魔藤”，足足攒了十年的力气，就等他今日气血两亏、心防破裂的一刻！</p>
+          <p>“留下来吧，阿渡。”陆微的声音温柔得令人窒息，四周的景象开始飞速变幻，化作了十年前苍梧山顶那座洒满阳光的小院，石桌上温着刚打来的山下杏花酒，“只要你放下这柄尺，我们便回到十年前的那个清晨。那日我们不下山，不接那单生意，我不会死，你的眼睛也不会瞎。我们师兄弟二人，还像从前一样对饮弈棋，好不好？”</p>
+          <p>杏花酒的醇香扑面而来，温暖的阳光照在沈渡冰冷的伤口上，竟真的止住了疼痛。</p>
+          <p>沈渡看着眼前笑意盈盈的师兄，看着那碗自己十年不曾再尝一口的杏花酒。他太累了。十年的孤寂、九十九次感同身受的悲欢离合，像一座大山压在他的脊梁上。只要点一点头，这一切苦厄便都能烟消云散。</p>
+          <p>沈渡缓缓抬起了手。</p>
+          <p>对面的“陆微”眼中闪过一丝不易察觉的喜色，向前迎了一步。</p>
+          <p>然而下一瞬，沈渡抬起的手并未去接那碗酒，而是反手握住腰间的焦尾竹笛，狠狠刺进了自己左肩的伤口之中！</p>
+          <p>剧烈的痛楚瞬间炸开，阳光与小院猛地晃动了一下。</p>
+          <p>“你这是何苦！”幻象中的陆微面色一变，声音染上了几分急切，“你知道这是幻境又如何？人生百年，不过也是一场大梦！你在外头孤苦伶仃是真，在这里与我把酒言欢难道就是假么？”</p>
+          <p>“自然是假。”</p>
+          <p>沈渡拔出带血的竹笛，苍白的脸上竟浮现出一抹极淡的笑意。</p>
+          <p>“因为真正的陆微，是个连杏花酒兑了三分水都能尝出来的酒鬼，更是个宁可自己魂飞魄散，也绝不肯看我沉沦虚妄的蠢货。”</p>
+          <p>沈渡直起身，将昏迷的苏砚牢牢缚在背上，右手横起那柄陪伴了他十年的乌木尺。</p>
+          <p>“你借他的脸，说出的却全是我自己的软弱。幻林，你困了我十年，今日，也该替我自己折一次枝了！”</p>
+          <p>话音未落，沈渡右手握尺，反手向自己后心上方全力斩去！</p>
+          <p>这一尺，斩的是自己十年的心魔。没有旁人替他分担反噬，两股记忆——十年前陆微死在他怀里的彻骨绝望，与十年来日夜煎熬的孤寂——如决堤江水般瞬间倒灌进他的四肢百骸。</p>
+          <p class="sound-fx">“铮——！”</p>
+          <p>乌木尺在斩断那根无形巨藤的刹那，承受不住这股积攒了十年的反噬之力，竟发出一声金铁交鸣般的悲鸣，从中寸寸断裂！</p>
+          <p>沈渡喷出一口鲜血，整个人被气浪掀翻在地，但他始终偏着身子，用自己的脊背护住了身后昏迷的苏砚。</p>
+          <p>幻象中的陆微在漫天碎光中停止了挣扎。在彻底消散前的最后一瞬，那具由沈渡执念化成的幻影，忽然敛去了妖异的神色，对着倒在血泊中的沈渡，轻轻作了一个道揖，唇角无声地动了动。</p>
+          <p>那口型分明是：<em>“师弟，保重。”</em></p>
+        </section>
+
+        <!-- 第五章 -->
+        <section id="ch-5">
+          <div class="chapter-header">
+            <div class="chapter-num">卷五</div>
+            <h2 class="chapter-title">散雾</h2>
+          </div>
+
+          <p>暮春的雨水终于落了下来，淅淅沥沥地打在苍梧山腰的草庐上。</p>
+          <p>今日是第三日。</p>
+          <p>夕阳早已被厚重的乌云遮蔽，天色暗得极快。少女阿沅跪坐在竹扉前的屋檐下，双目红肿，死死盯着山下那条被白雾吞没的小径。</p>
+          <p>油灯里的灯油已经添了三次，眼看最后一丝天光也要沉入山谷。阿沅绝望地闭上眼，两行清泪顺着脸颊滑落。</p>
+          <p>就在此时，山径尽头的白雾里，忽然传来了踩碎枯枝的沙沙声。</p>
+          <p>阿沅猛地睁开眼，顾不得倾盆大雨，跌跌撞撞地冲下石阶。</p>
+          <p>白雾翻涌间，一个浑身泥水与血迹的青灰身影，正一步一顿地走出林缘。他背上背着一个面色苍白却呼吸尚存的青衫书生，左眼上的细麻布早已被雨水与血水浸透，紧贴在眼眶上。</p>
+          <p>“阿兄！沈先生！”阿沅扑上前去，喜极而泣，扶住摇摇欲坠的两人。</p>
+          <p>沈渡将苏砚交到少女手中，紧绷了一路的心弦骤然松开，整个人靠在林缘的界碑上，剧烈地喘息起来。雨水冲刷着他脸上的血污，他抬起头，用仅存的右眼看向身后——</p>
+          <p>随着心魔藤的断裂，那片笼罩了苍梧山北麓上百年的浓重白雾，竟在风雨中以肉眼可见的速度渐渐变淡，露出了其后苍翠欲滴、与寻常山林并无二致的漫山林木。</p>
+          <p>“先生，您的眼睛……”阿沅扶着兄长，惊恐地指着沈渡的左眼。</p>
+          <p>沈渡伸手摸了摸左眼。随着幻林的散去，那只靠幻林怨气支撑的“见妄眼”彻底失去了效用，但也再无往日日夜灼烧般的剧痛。</p>
+          <p>“无妨，本就是借来的东西，还回去罢了。”</p>
+          <p>沈渡从怀中取出两样东西，递给阿沅。一样是那管洗净了血迹的焦尾竹笛，另一样，则是那截从古樟树上折下的、带着一朵半蔫桃花的枯枝。</p>
+          <p>“先生，这笛子是抵给您的……”</p>
+          <p>“乌木尺断了，往后这世上没有幻林，也不再需要折枝人了。”沈渡将竹笛塞回少女手中，声音在雨声中显得格外轻快，“把这截树枝带回去，熬水给你阿兄服下，他自然会醒。至于这管笛子，留着吹给他听吧。死去的人活在念想里便好，活着的人，还得接着往前走。”</p>
+          <p>说罢，沈渡撑起靠在界碑旁的那柄旧油纸伞，没有回山腰的草庐，而是转过身，沿着下山的青石板路走去。</p>
+          <p>风雨渐歇，天边裂开一线澄澈的晚霞。</p>
+          <p>下山的路很长，山脚下的村落已升起了点点炊烟。沈渡走得很慢，他摸了摸怀里那半截断掉的乌木尺，忽然觉得，去山下寻一家酒肆，打一壶兑了三分水的杏花酒尝尝，似乎也是桩极不错的事。</p>
+        </section>
+
+      </div>
+
+      <!-- 卷末跋文与印章 -->
+      <footer class="mt-20 pt-10 border-t text-center" style="border-color: var(--border-line);">
+        <div class="inline-flex flex-col items-center gap-3">
+          <span class="seal-stamp">终卷</span>
+          <p class="text-xs tracking-[0.35em] mt-2" style="color: var(--text-muted); font-family: var(--font-kai);">
+            苍梧山雾散 · 杏花酒微温
+          </p>
+        </div>
+      </footer>
+
+    </article>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="py-6 text-center text-xs relative z-10" style="color: var(--text-faint); font-family: var(--font-kai);">
+    《幻林折枝》 · 宣纸雅集中文排版预览
+  </footer>
+
+  <!-- 交互逻辑与落花动效 -->
+  <script>
+    const htmlEl = document.documentElement;
+    const settingsBtn = document.getElementById('toggle-settings');
+    const settingsDrawer = document.getElementById('settings-drawer');
+
+    settingsBtn.addEventListener('click', () => {
+      settingsDrawer.classList.toggle('hidden');
+    });
+
+    function bindGroup(attrName, htmlAttr) {
+      const buttons = document.querySelectorAll(`[${attrName}]`);
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          htmlEl.setAttribute(htmlAttr, btn.getAttribute(attrName));
+        });
+      });
+    }
+
+    bindGroup('data-set-theme', 'data-theme');
+    bindGroup('data-set-font', 'data-font');
+    bindGroup('data-set-size', 'data-size');
+    bindGroup('data-set-dir', 'data-direction');
+
+    // 阅读进度条与章节高亮
+    const progressBar = document.getElementById('progress-bar');
+    const sections = document.querySelectorAll('section[id^="ch-"]');
+    const tocItems = document.querySelectorAll('.toc-item');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      progressBar.style.width = pct + '%';
+
+      let currentId = 'ch-1';
+      sections.forEach(sec => {
+        if (scrollTop >= sec.offsetTop - 240) {
+          currentId = sec.id;
+        }
+      });
+      tocItems.forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === '#' + currentId);
+      });
+    });
+
+    // 桃花瓣与薄雾微粒 Canvas
+    const canvas = document.getElementById('mist-canvas');
+    const ctx = canvas.getContext('2d');
+    let petals = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 22; i++) {
+      petals.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 2.5 + Math.random() * 4,
+        vx: -0.25 + Math.random() * 0.6,
+        vy: 0.35 + Math.random() * 0.65,
+        angle: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.015
+      });
+    }
+
+    function drawPetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const style = getComputedStyle(htmlEl);
+      const petalColor = style.getPropertyValue('--petal-color').trim() || 'rgba(214, 143, 137, 0.25)';
+
+      ctx.fillStyle = petalColor;
+      petals.forEach(p => {
+        p.x += p.vx + Math.sin(p.angle) * 0.25;
+        p.y += p.vy;
+        p.angle += p.spin;
+
+        if (p.y > canvas.height + 20) {
+          p.y = -15;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x > canvas.width + 20) p.x = -15;
+        if (p.x < -20) p.x = canvas.width + 15;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.r * 1.4, p.r * 0.75, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      requestAnimationFrame(drawPetals);
+    }
+    drawPetals();
+  </script>
+</body>
+</html>
