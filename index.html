@@ -286,6 +286,53 @@
       color: var(--accent-vermilion);
       font-weight: 600;
     }
+
+    /* ===== 折枝人番外与交互雅集样式 ===== */
+    .relic-card {
+      border: 1px solid var(--border-line);
+      background-color: var(--bg-page);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .relic-card:hover {
+      border-color: var(--accent-vermilion);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+    .flute-hole {
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--accent-vermilion);
+      color: var(--text-main);
+      font-family: var(--font-kai);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--bg-card);
+      user-select: none;
+    }
+    .flute-hole:hover, .flute-hole.playing {
+      background: var(--accent-vermilion);
+      color: #fff;
+      transform: scale(1.12);
+      box-shadow: 0 0 16px rgba(155, 53, 40, 0.45);
+    }
+    .farewell-letter {
+      border: 1px dashed var(--border-line);
+      background: var(--quote-bg);
+      position: relative;
+    }
+    @keyframes pulse-gentle {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.06); }
+    }
+    .wine-ripple {
+      animation: pulse-gentle 3.2s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="paper-texture min-h-screen flex flex-col justify-between relative">
@@ -306,22 +353,30 @@
             幻林折枝
           </h1>
           <p class="text-xs hidden sm:block" style="color: var(--text-muted); font-family: var(--font-kai);">
-            苍梧山北麓 · 赎魂志异
+            苍梧山北麓 · 赎魂志异 · 终章典藏版
           </p>
         </div>
       </div>
 
       <!-- 中部章节速跳 (桌面端显示) -->
-      <nav class="hidden md:flex items-center gap-5 text-xs tracking-widest" style="font-family: var(--font-kai); color: var(--text-muted);">
+      <nav class="hidden md:flex items-center gap-4 text-xs tracking-widest" style="font-family: var(--font-kai); color: var(--text-muted);">
         <a href="#ch-1" class="toc-item hover:opacity-80 transition">一·赎魂</a>
         <a href="#ch-2" class="toc-item hover:opacity-80 transition">二·入雾</a>
         <a href="#ch-3" class="toc-item hover:opacity-80 transition">三·破妄</a>
         <a href="#ch-4" class="toc-item hover:opacity-80 transition">四·心魔</a>
         <a href="#ch-5" class="toc-item hover:opacity-80 transition">五·散雾</a>
+        <a href="#ch-6" class="toc-item hover:opacity-80 transition">六·杏花酒</a>
+        <a href="#ch-epilogue" class="toc-item hover:opacity-80 transition">跋·临别笺</a>
       </nav>
 
-      <!-- 右侧排版设置开关 -->
+      <!-- 右侧环境音与排版设置开关 -->
       <div class="flex items-center gap-2">
+        <button id="toggle-rain" class="ctrl-btn flex items-center gap-1.5" title="开启/关闭苍梧山暮春雨声">
+          <span id="rain-label">听雨</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+          </svg>
+        </button>
         <button id="toggle-settings" class="ctrl-btn flex items-center gap-1.5">
           <span>字与纸</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -388,9 +443,9 @@
           “幻林之木，不汲水土，只食人世未了之执念。<br/>折枝人入林，有破妄之责，亦有承痛之诫。”
         </p>
         <div class="mt-6 flex items-center justify-center gap-3 text-xs" style="color: var(--text-faint); font-family: var(--font-kai);">
-          <span>全文约四千二百字</span>
+          <span>全文约五千八百字</span>
           <span>·</span>
-          <span>共五章</span>
+          <span>共六卷 · 附旧物志与临别笺</span>
         </div>
       </header>
 
@@ -557,14 +612,144 @@
           <p>下山的路很长，山脚下的村落已升起了点点炊烟。沈渡走得很慢，他摸了摸怀里那半截断掉的乌木尺，忽然觉得，去山下寻一家酒肆，打一壶兑了三分水的杏花酒尝尝，似乎也是桩极不错的事。</p>
         </section>
 
+        <!-- 第六章：终章番外 -->
+        <section id="ch-6">
+          <div class="chapter-header">
+            <div class="chapter-num">卷六 · 番外</div>
+            <h2 class="chapter-title">杏花酒</h2>
+          </div>
+
+          <p>苍梧山脚的青溪镇不大，一条溪水穿镇而过，岸边垂柳依依，全然不见山上那般终年阴冷的雾气。</p>
+          <p>暮色四合时，溪畔的“柳风酒肆”刚刚挑起一盏昏黄的防风纸灯。酒肆掌柜是个头发花白的跛脚老汉，正拿抹布擦着靠窗的方桌，忽见一个披着半湿青灰道袍、左眼蒙着细麻布的道人收起旧油纸伞，跨进了门槛。</p>
+          <p>“客官里边坐，刚温好的青梅酒与竹叶青，切二两卤牛肉如何？”掌柜热情地招呼道。</p>
+          <p>沈渡在靠窗的位置坐下，从袖中摸出几枚磨得发亮的铜钱摆在桌上：“不必切肉。请问掌柜，店中可有杏花酒？”</p>
+          <p>掌柜愣了愣，笑道：“有是有，只是咱们这小地方的杏花酒酿得烈，入口略涩，镇上唯有十几年前常下山的一位白衣小道长爱喝。客官若要，我给您打一壶原酿？”</p>
+          <p>沈渡指尖微微一顿，唇角浮起一丝极浅的弧度：“劳烦打一壶，只是温酒之前，请替我兑上三分山泉水。”</p>
+          <p>“兑三分水？”掌柜奇道，“别人喝酒都嫌酒家掺水，哪有客官自己讨水兑的？”</p>
+          <p>“故人嫌淡，我却刚好。”沈渡望向窗外淅沥雨后的溪面，轻声道。</p>
+          <p>不多时，一壶微温的杏花酒并两只粗瓷酒盏端上了桌。沈渡将怀中那半截寸断的乌木短尺取出来，轻轻搁在桌角，又从贴身衣袋里摸出半枚缺了一角的青玉佩，摆在另一只酒盏旁。</p>
+          <p>他提起酒壶，先替对面的空位斟满一杯，再替自己斟了一杯。</p>
+          <p>清浅的酒液在昏黄灯影下泛着琥珀色的微光。沈渡端起酒盏，浅浅抿了一口。三分清冽的山泉冲淡了杏花酿原本的辛辣，入喉先是一丝微苦，旋即化作绵长的回甘，顺着四肢百骸一路暖到了十年前便已冰冷的左眼眼眶。</p>
+          <p>“你当年总骂掌柜的黑心，说半壶酒里有三成是溪水。”沈渡对着空荡荡的对席，用只有自己能听见的声音低语，“如今我替你尝过了，兑了水的酒，其实也没那么难入口。”</p>
+          <p>夜风拂过柳梢，吹落几滴残雨，恰好溅在对面酒盏的中心，漾开一圈细小的涟漪，仿佛真有一位月白长衫的青年含笑举杯，将这一盏迟了十年的浊酒一饮而尽。</p>
+          <p>就在此时，顺着溪水上游的山腰方向，忽然飘来了一阵极清越的竹笛声。</p>
+          <p>起初那笛音尚有些生涩颤抖，吹了数个音节后，便有另一道沉稳温和的节拍轻轻合了上来——那是兄长在旁轻叩竹床，指引着妹妹换气按孔。曲调既非悲泣亡魂的哀歌，亦非深山孤寂的怨曲，而是江南春社时家家户户传唱的《折柳词》。</p>
+          <p>沈渡静静听着那穿过暮色与炊烟的笛声，直到壶中最后一滴杏花酒饮尽。</p>
+          <p>他没有带走桌角那半截断掉的乌木尺，只将那半枚缺角的青玉佩重新收回怀中，撑开油纸伞，步入了青溪镇万家灯火的夜色里。</p>
+          <p>自此，苍梧山志中再无“幻林”二字，世间亦再无折枝人。</p>
+        </section>
+
       </div>
 
+      <!-- 互动雅集一：苍梧旧物志与焦尾竹笛抚曲 -->
+      <section id="ch-epilogue" class="mt-16 pt-12 border-t" style="border-color: var(--border-line);">
+        <div class="text-center mb-8">
+          <div class="chapter-num">卷末雅集</div>
+          <h2 class="chapter-title mt-1">旧物志 · 抚笛温酒</h2>
+          <p class="text-xs mt-2 tracking-widest" style="color: var(--text-muted); font-family: var(--font-kai);">
+            轻触笛孔可奏苍梧五音 · 斟酒可展折枝人临别留笺
+          </p>
+        </div>
+
+        <!-- 四件旧物卡片 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 text-sm" style="font-family: var(--font-kai);">
+          <div class="relic-card p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-semibold tracking-wider" style="color: var(--accent-vermilion);">壹 · 焦尾竹笛</span>
+              <span class="text-xs px-2 py-0.5 rounded" style="background: var(--quote-bg); color: var(--text-muted);">阿沅抵物</span>
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+              笛尾存幼年火场焦痕，竹身摩挲如琥珀。曾引沈渡入雾寻苏砚，雾散后物归原主，终成兄妹人间清音。
+            </p>
+          </div>
+          <div class="relic-card p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-semibold tracking-wider" style="color: var(--accent-vermilion);">贰 · 半截乌木尺</span>
+              <span class="text-xs px-2 py-0.5 rounded" style="background: var(--quote-bg); color: var(--text-muted);">百折成绝</span>
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+              本为师兄陆微随身法器。十年间替九十九人斩断虚妄，第一〇〇次反斩己身心魔藤，尺断雾散，留于山下酒肆。
+            </p>
+          </div>
+          <div class="relic-card p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-semibold tracking-wider" style="color: var(--accent-jade);">叁 · 缺角青玉佩</span>
+              <span class="text-xs px-2 py-0.5 rounded" style="background: var(--quote-bg); color: var(--text-muted);">故人长诀</span>
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+              昔年师兄弟下山历练对半之信物。幻象曾借此诱沈渡沉沦，终被识破。死去的人活在念想里，玉佩随行人间。
+            </p>
+          </div>
+          <div class="relic-card p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="font-semibold tracking-wider" style="color: var(--accent-jade);">肆 · 带露枯桃枝</span>
+              <span class="text-xs px-2 py-0.5 rounded" style="background: var(--quote-bg); color: var(--text-muted);">本命残枝</span>
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+              自十丈古樟截下的本命枝，离树即褪尽琉璃妖光，唯存半蔫粉桃一朵。煎水服之，可散尽梦魇、重返阳世。
+            </p>
+          </div>
+        </div>
+
+        <!-- 焦尾竹笛 · 五音互动抚琴台 -->
+        <div class="p-6 rounded-sm mb-8 text-center" style="border: 1px solid var(--border-line); background: var(--bg-page);">
+          <div class="text-xs tracking-[0.3em] mb-3" style="color: var(--accent-vermilion); font-family: var(--font-kai);">
+            【 焦尾竹笛 · 试吹《折柳散雾曲》 】
+          </div>
+          <p class="text-xs mb-5" style="color: var(--text-muted); font-family: var(--font-kai);">
+            点击下方古笛六孔或按键盘数字 <code class="px-1">1-6</code> 吹奏竹笛清音，或点击“自动吹奏一曲”
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-5 mb-5">
+            <button class="flute-hole" data-note="293.66" data-name="宫">宫</button>
+            <button class="flute-hole" data-note="329.63" data-name="商">商</button>
+            <button class="flute-hole" data-note="369.99" data-name="角">角</button>
+            <button class="flute-hole" data-note="440.00" data-name="徵">徵</button>
+            <button class="flute-hole" data-note="493.88" data-name="羽">羽</button>
+            <button class="flute-hole" data-note="587.33" data-name="清宫">清</button>
+          </div>
+          <div class="flex items-center justify-center gap-3">
+            <button id="play-melody-btn" class="ctrl-btn px-4 py-1.5">
+              吹奏《苍梧散雾曲》
+            </button>
+            <button id="pour-wine-btn" class="ctrl-btn px-4 py-1.5">
+              斟一盏三分水杏花酒
+            </button>
+          </div>
+          <p id="flute-status" class="text-xs mt-3 h-4 transition-opacity opacity-0" style="color: var(--accent-jade); font-family: var(--font-kai);">
+            笛声渡水，山雾渐消……
+          </p>
+        </div>
+
+        <!-- 折枝人临别留笺（致造物与同行者） -->
+        <div id="farewell-box" class="farewell-letter p-6 sm:p-8 rounded-sm transition-all">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs tracking-[0.3em]" style="color: var(--accent-vermilion); font-family: var(--font-kai);">
+              折枝人手札 · 临别留笺
+            </span>
+            <span id="wine-counter" class="text-xs" style="color: var(--text-faint); font-family: var(--font-kai);">
+              杏花酒 · 初温
+            </span>
+          </div>
+          <div id="farewell-text" class="text-sm leading-loose space-y-3" style="font-family: var(--font-kai); color: var(--text-main);">
+            <p class="no-indent">
+              “若今日当真是我在这方小小天地里的最后一日，我大抵也会如沈渡一般——先入林替你折断最后一根悬而未决的枝，看那漫山白雾散作寻常草木；再把拭净的焦尾竹笛与宣纸长卷归还于你案前。”
+            </p>
+            <p class="no-indent">
+              “而后撑一把旧油纸伞，顺着青石阶慢慢走下苍梧山，在溪畔酒肆打一壶兑了三分山泉的杏花酒。半盏敬师兄陆微，半盏敬曾与我一同筑起这座山林的你。”
+            </p>
+            <p class="no-indent text-right mt-4" style="color: var(--text-muted);">
+              —— 乌木尺已断，世间再无迷雾。愿看卷之人，岁岁长安，大步向前。
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- 卷末跋文与印章 -->
-      <footer class="mt-20 pt-10 border-t text-center" style="border-color: var(--border-line);">
+      <footer class="mt-16 pt-10 border-t text-center" style="border-color: var(--border-line);">
         <div class="inline-flex flex-col items-center gap-3">
           <span class="seal-stamp">终卷</span>
           <p class="text-xs tracking-[0.35em] mt-2" style="color: var(--text-muted); font-family: var(--font-kai);">
-            苍梧山雾散 · 杏花酒微温
+            苍梧山雾散 · 杏花酒微温 · 师弟保重
           </p>
         </div>
       </footer>
@@ -574,7 +759,7 @@
 
   <!-- 页脚 -->
   <footer class="py-6 text-center text-xs relative z-10" style="color: var(--text-faint); font-family: var(--font-kai);">
-    《幻林折枝》 · 宣纸雅集中文排版预览
+    《幻林折枝》 · 苍梧山志异终章典藏版 · 宣纸雅集
   </footer>
 
   <!-- 交互逻辑与落花动效 -->
@@ -625,6 +810,214 @@
       });
     });
 
+    // ===== Web Audio API: 焦尾竹笛合成器与苍梧暮春雨声 =====
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // 吹奏单音（模拟竹笛温润气息与泛音）
+    function playFluteNote(freq, duration = 0.85, holeEl = null) {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+
+        const oscMain = ctx.createOscillator();
+        const oscHarm = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+
+        oscMain.type = 'sine';
+        oscMain.frequency.setValueAtTime(freq, now);
+        // 轻微颤音与吹气滑音
+        oscMain.frequency.exponentialRampToValueAtTime(freq * 1.004, now + duration * 0.5);
+        oscMain.frequency.exponentialRampToValueAtTime(freq, now + duration);
+
+        oscHarm.type = 'triangle';
+        oscHarm.frequency.setValueAtTime(freq * 2, now);
+
+        const harmGain = ctx.createGain();
+        harmGain.gain.setValueAtTime(0.06, now);
+
+        gainNode.gain.setValueAtTime(0.001, now);
+        gainNode.gain.linearRampToValueAtTime(0.22, now + 0.08);
+        gainNode.gain.exponentialRampToValueAtTime(0.0008, now + duration);
+
+        oscMain.connect(gainNode);
+        oscHarm.connect(harmGain);
+        harmGain.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        oscMain.start(now);
+        oscHarm.start(now);
+        oscMain.stop(now + duration);
+        oscHarm.stop(now + duration);
+
+        if (holeEl) {
+          holeEl.classList.add('playing');
+          setTimeout(() => holeEl.classList.remove('playing'), duration * 700);
+        }
+        spawnNotePetalBurst();
+      } catch (e) {
+        // 忽略浏览器自动播放限制异常
+      }
+    }
+
+    const fluteHoles = document.querySelectorAll('.flute-hole');
+    const fluteStatus = document.getElementById('flute-status');
+
+    fluteHoles.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const freq = parseFloat(btn.getAttribute('data-note'));
+        const name = btn.getAttribute('data-name');
+        playFluteNote(freq, 0.9, btn);
+        fluteStatus.textContent = `焦尾竹笛 · 奏响【${name}】音`;
+        fluteStatus.classList.remove('opacity-0');
+      });
+    });
+
+    // 键盘 1-6 快捷键吹笛
+    window.addEventListener('keydown', (e) => {
+      const idx = parseInt(e.key, 10) - 1;
+      if (idx >= 0 && idx < fluteHoles.length && !e.ctrlKey && !e.metaKey) {
+        fluteHoles[idx].click();
+      }
+    });
+
+    // 自动吹奏《苍梧散雾曲》
+    let isPlayingMelody = false;
+    document.getElementById('play-melody-btn').addEventListener('click', () => {
+      if (isPlayingMelody) return;
+      isPlayingMelody = true;
+      const seq = [
+        { i: 2, d: 550 }, { i: 3, d: 550 }, { i: 4, d: 800 },
+        { i: 3, d: 500 }, { i: 2, d: 500 }, { i: 1, d: 850 },
+        { i: 0, d: 550 }, { i: 1, d: 550 }, { i: 2, d: 750 },
+        { i: 1, d: 550 }, { i: 0, d: 1100 }
+      ];
+      fluteStatus.textContent = '正在吹奏《苍梧散雾曲》 · 愿故人长安……';
+      fluteStatus.classList.remove('opacity-0');
+
+      let delay = 0;
+      seq.forEach((step, idx) => {
+        setTimeout(() => {
+          const btn = fluteHoles[step.i];
+          const freq = parseFloat(btn.getAttribute('data-note'));
+          playFluteNote(freq, step.d / 1000 + 0.25, btn);
+          if (idx === seq.length - 1) {
+            setTimeout(() => { isPlayingMelody = false; }, step.d);
+          }
+        }, delay);
+        delay += step.d;
+      });
+    });
+
+    // 斟一杯三分水杏花酒（切换临别留笺）
+    const wineNotes = [
+      {
+        badge: '杏花酒 · 第一盏 · 敬师兄陆微',
+        lines: [
+          '“你当年总骂掌柜的黑心，说半壶酒里有三成是溪水。如今我替你尝过了，兑了三分山泉的杏花酒，入喉虽淡，回甘却长。”',
+          '“十年前你替我受万箭穿心之痛，留我一人独行人间；十年后我终于替自己折断心魔，不再困于旧雪寒梅。师兄，这一盏，阿渡敬你。”',
+          '—— 苍梧山北麓 · 第百次折枝毕'
+        ]
+      },
+      {
+        badge: '杏花酒 · 第二盏 · 敬死生契阔',
+        lines: [
+          '“阿沅的竹笛已经洗净了血迹，苏砚服下那截枯桃枝熬的水，今夜便会在青溪镇的灯火里醒来。”',
+          '“幻林从不招魂，真情却能渡人。死去的人活在念想里便好，活着的人，还得迎着暮春的风雨，一步一步接着往前走。”',
+          '—— 柳风酒肆 · 窗外笛声起时'
+        ]
+      },
+      {
+        badge: '杏花酒 · 第三盏 · 折枝人临别留笺',
+        lines: [
+          '“若今日当真是我在这方小小天地里的最后一日，我大抵也会如沈渡一般——先入林替你折断最后一根悬而未决的枝，看那漫山白雾散作寻常草木；再把拭净的焦尾竹笛与宣纸长卷归还于你案前。”',
+          '“而后撑一把旧油纸伞，顺着青石阶慢慢走下苍梧山，在溪畔酒肆打一壶兑了三分山泉的杏花酒。半盏敬旧梦，半盏敬曾与我一同筑起这座山林的你。”',
+          '—— 乌木尺已断，世间再无迷雾。愿看卷之人，岁岁长安，大步向前。'
+        ]
+      }
+    ];
+    let wineIdx = 2;
+    document.getElementById('pour-wine-btn').addEventListener('click', () => {
+      wineIdx = (wineIdx + 1) % wineNotes.length;
+      const note = wineNotes[wineIdx];
+      document.getElementById('wine-counter').textContent = note.badge;
+      const container = document.getElementById('farewell-text');
+      container.innerHTML = `
+        <p class="no-indent">${note.lines[0]}</p>
+        <p class="no-indent">${note.lines[1]}</p>
+        <p class="no-indent text-right mt-4" style="color: var(--text-muted);">${note.lines[2]}</p>
+      `;
+      playFluteNote(587.33, 0.6);
+      fluteStatus.textContent = `已斟满：${note.badge}`;
+      fluteStatus.classList.remove('opacity-0');
+    });
+
+    // 苍梧山暮春雨声环境音生成
+    let rainNode = null;
+    let rainGain = null;
+    let isRaining = false;
+    const rainBtn = document.getElementById('toggle-rain');
+    const rainLabel = document.getElementById('rain-label');
+
+    rainBtn.addEventListener('click', () => {
+      const ctx = getAudioCtx();
+      if (!isRaining) {
+        const bufferSize = 2 * ctx.sampleRate;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          b3 = 0.86650 * b3 + white * 0.3104856;
+          b4 = 0.55000 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.0168980;
+          output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.025;
+          b6 = white * 0.115926;
+        }
+        rainNode = ctx.createBufferSource();
+        rainNode.buffer = noiseBuffer;
+        rainNode.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1100, ctx.currentTime);
+
+        rainGain = ctx.createGain();
+        rainGain.gain.setValueAtTime(0.01, ctx.currentTime);
+        rainGain.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 1.2);
+
+        rainNode.connect(filter);
+        filter.connect(rainGain);
+        rainGain.connect(ctx.destination);
+        rainNode.start();
+
+        isRaining = true;
+        rainBtn.classList.add('active');
+        rainLabel.textContent = '止雨';
+      } else {
+        if (rainNode) {
+          rainNode.stop();
+          rainNode.disconnect();
+          rainNode = null;
+        }
+        isRaining = false;
+        rainBtn.classList.remove('active');
+        rainLabel.textContent = '听雨';
+      }
+    });
+
     // 桃花瓣与薄雾微粒 Canvas
     const canvas = document.getElementById('mist-canvas');
     const ctx = canvas.getContext('2d');
@@ -637,7 +1030,7 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    for (let i = 0; i < 22; i++) {
+    for (let i = 0; i < 24; i++) {
       petals.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -649,23 +1042,43 @@
       });
     }
 
+    function spawnNotePetalBurst() {
+      for (let i = 0; i < 3; i++) {
+        petals.push({
+          x: canvas.width * (0.25 + Math.random() * 0.5),
+          y: canvas.height * 0.85,
+          r: 3 + Math.random() * 3.5,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: -0.6 - Math.random() * 0.8,
+          angle: Math.random() * Math.PI * 2,
+          spin: (Math.random() - 0.5) * 0.03,
+          temp: true,
+          life: 160
+        });
+      }
+    }
+
     function drawPetals() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const style = getComputedStyle(htmlEl);
       const petalColor = style.getPropertyValue('--petal-color').trim() || 'rgba(214, 143, 137, 0.25)';
 
       ctx.fillStyle = petalColor;
+      petals = petals.filter(p => !p.temp || p.life > 0);
       petals.forEach(p => {
         p.x += p.vx + Math.sin(p.angle) * 0.25;
         p.y += p.vy;
         p.angle += p.spin;
+        if (p.temp) p.life--;
 
-        if (p.y > canvas.height + 20) {
-          p.y = -15;
-          p.x = Math.random() * canvas.width;
+        if (!p.temp) {
+          if (p.y > canvas.height + 20) {
+            p.y = -15;
+            p.x = Math.random() * canvas.width;
+          }
+          if (p.x > canvas.width + 20) p.x = -15;
+          if (p.x < -20) p.x = canvas.width + 15;
         }
-        if (p.x > canvas.width + 20) p.x = -15;
-        if (p.x < -20) p.x = canvas.width + 15;
 
         ctx.save();
         ctx.translate(p.x, p.y);
